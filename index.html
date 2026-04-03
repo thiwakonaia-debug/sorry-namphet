@@ -2,6 +2,10 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+
+<!-- 📱 สำคัญมาก -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ก้องมาง้อ น้องน้ำครับ 🥺😥</title>
 
 <style>
@@ -16,32 +20,35 @@ body {
     overflow: hidden;
 }
 
+/* 📦 responsive card */
 .card {
     background: white;
-    padding: 60px;
+    padding: 40px 20px;
     border-radius: 25px;
     text-align: center;
     box-shadow: 0 15px 40px rgba(0,0,0,0.12);
     animation: fadeIn 1s ease;
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
 }
 
-h1 { font-size: 32px; }
+h1 { font-size: 28px; }
 
 #text {
-    font-size: 18px;
+    font-size: 16px;
     color: #666;
     min-height: 50px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
+/* 📊 progress */
 .progress {
     width: 100%;
-    height: 14px;
+    height: 12px;
     background: #eee;
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .bar {
@@ -52,18 +59,19 @@ h1 { font-size: 32px; }
 }
 
 #percent {
-    font-size: 16px;
+    font-size: 14px;
     color: #999;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
+/* 🔘 ปุ่ม */
 .btn {
-    padding: 18px 35px;
+    padding: 16px 25px;
     border: none;
-    border-radius: 30px;
-    font-size: 20px;
+    border-radius: 25px;
+    font-size: 18px;
     cursor: pointer;
-    margin: 15px;
+    margin: 8px;
     transition: 0.3s;
 }
 
@@ -72,6 +80,7 @@ h1 { font-size: 32px; }
 
 .btn:hover { transform: scale(1.05); }
 
+/* animation */
 @keyframes fadeIn {
     from {opacity:0; transform: scale(0.9);}
     to {opacity:1; transform: scale(1);}
@@ -113,6 +122,16 @@ h1 { font-size: 32px; }
     50% { transform: scale(1.2);}
     100% { transform: scale(1);}
 }
+
+/* 📱 mobile */
+@media (max-width: 500px) {
+    h1 { font-size: 22px; }
+    #text { font-size: 15px; }
+    .btn {
+        width: 100%;
+        margin: 8px 0;
+    }
+}
 </style>
 </head>
 
@@ -125,8 +144,13 @@ h1 { font-size: 32px; }
     <div class="progress"><div class="bar" id="bar"></div></div>
     <div id="percent">ใจอ่อนยางงงง 0%</div>
 
+    <!-- 📱 รองรับ touch -->
     <button class="btn yes" id="yesBtn" onclick="forgive()">หายแล้ว 💖</button>
-    <button class="btn no" id="noBtn" onmouseover="moveButton()">ไม่หายหรอ 😤</button>
+    <button class="btn no" id="noBtn"
+        onmouseover="moveButton()"
+        ontouchstart="moveButton()">
+        ไม่หายหรอ 😤
+    </button>
 </div>
 
 <audio id="bgm" loop>
@@ -141,7 +165,7 @@ document.body.addEventListener("click", () => {
 }, { once: true });
 
 // ✍️ typing
-const msg = "เทอเค้ามาง้อขอโทษนะ 🥺";
+const msg = "มาง้อ ..... เค้าขอโทษนะเทออ 🥺";
 let i=0;
 function type(){
  if(i<msg.length){
@@ -151,19 +175,17 @@ function type(){
 }
 type();
 
-// 💬 random teasing (มีชื่อ!)
+// 💬 random
 const teasing = [
  "น้ำเพชรหายงอนก้องเถอะน้า 🥺💖",
- "ง้ออีกหน่อยได้มั้ยยย 🥺",
+ "ง้ออีกหน่อยได้มั้ยย 🥺",
  "ยังไม่พอออ 😤",
  "ใจแข็งจังเลยน้า 😝",
  "ก้องง้ออยู่นะะะ 💔",
  "อีกนิดเดียวเองง 💖",
- "เค้าพยายามอยู่นะ 🥺",
- "ง้อจนเหนื่อยแล้วนะ 😂"
+ "เค้าพยายามอยู่นะ 🥺"
 ];
 
-// state
 let progress=0, scaleYes=1, scaleNo=1;
 
 function moveButton(){
@@ -171,8 +193,8 @@ function moveButton(){
  const yes=document.getElementById("yesBtn");
 
  no.style.position="fixed";
- no.style.left=Math.random()*90+"vw";
- no.style.top=Math.random()*90+"vh";
+ no.style.left=Math.random()*80+"vw";
+ no.style.top=Math.random()*80+"vh";
 
  scaleNo*=0.85;
  scaleYes*=1.1;
@@ -189,27 +211,23 @@ function moveButton(){
  bar.style.width=progress+"%";
  percent.innerText="ใจอ่อนแล้ว "+progress+"%";
 
- // 💖 ข้อความ random
- document.getElementById("text").innerHTML =
-  teasing[Math.floor(Math.random() * teasing.length)];
+ text.innerHTML = teasing[Math.floor(Math.random()*teasing.length)];
 }
 
-// 💖 MAIN EVENT
+// 💖 finish
 function forgive(){
  document.body.innerHTML=`
  <div style="text-align:center">
   <h1>เย้!!! 🥳💖</h1>
-  <p class="fadeText" style="animation-delay:0.5s">เค้าดีใจมากเทอหายงอลแล้ว 🥺</p>
-  <p class="fadeText" style="animation-delay:1.5s">เค้าจะไม่ทิ้งเทอแล้วยะ ขอโทษ 💕</p>
-  <p class="fadeText" style="animation-delay:2.5s">รักเทอจ้าา 💖</p>
+  <p class="fadeText" style="animation-delay:0.5s">เทอหายงอนแล้ววเย้ 🥺</p>
+  <p class="fadeText" style="animation-delay:1.5s">เค้าดีใจมากเลย จะไม่ทิ้งเทอแล้วน่าา 💕</p>
+  <p class="fadeText" style="animation-delay:2.5s">รักเทอที่สุดเลย 💖</p>
   <button class="btn yes" onclick="hug()">กอดหน่อย 🤗</button>
   <br><br>
   <button onclick="location.reload()">เล่นใหม่ 🔄</button>
  </div>
  `;
-
  explosion();
- setTimeout(explosion,500);
  sparkle();
 }
 
@@ -253,10 +271,10 @@ function sparkle(){
 function hug(){
  document.body.style.animation="hug 0.5s";
  setTimeout(()=>document.body.style.animation="",500);
- alert("เค้ากอดเทอแน่นๆ เลย 🤗💖");
+ alert("เค้ากอดเทอแน่นๆเลยนะ 🤗💖");
 }
 
-// 💓 floating hearts
+// 💓 hearts
 setInterval(()=>{
  let h=document.createElement("div");
  h.className="heart";
