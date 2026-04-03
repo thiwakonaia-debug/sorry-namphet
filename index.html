@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ก้องมาง้อ น้องน้ำครับ 🥺😥</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #ffe6f0, #ffffff);
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+}
+
+.card {
+    background: white;
+    padding: 60px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    animation: fadeIn 1s ease;
+    width: 400px;
+}
+
+h1 { font-size: 32px; }
+
+#text {
+    font-size: 18px;
+    color: #666;
+    min-height: 50px;
+    margin-bottom: 25px;
+}
+
+.progress {
+    width: 100%;
+    height: 14px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.bar {
+    height: 100%;
+    width: 0%;
+    background: #ff6699;
+    transition: 0.3s;
+}
+
+#percent {
+    font-size: 16px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 18px 35px;
+    border: none;
+    border-radius: 30px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 15px;
+    transition: 0.3s;
+}
+
+.yes { background: #ff6699; color: white; }
+.no { background: #eee; }
+
+.btn:hover { transform: scale(1.05); }
+
+@keyframes fadeIn {
+    from {opacity:0; transform: scale(0.9);}
+    to {opacity:1; transform: scale(1);}
+}
+
+/* 💓 hearts */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 5s linear infinite;
+}
+@keyframes floatUp {
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* ✨ sparkle */
+.sparkle {
+    position: fixed;
+    font-size: 18px;
+    animation: sparkleFall 2s linear;
+}
+@keyframes sparkleFall {
+    to { transform: translateY(100vh); opacity: 0; }
+}
+
+/* 💌 fade text */
+.fadeText {
+    opacity: 0;
+    animation: fadeInText 1s forwards;
+}
+@keyframes fadeInText {
+    to { opacity: 1; }
+}
+
+/* 🤗 hug */
+@keyframes hug {
+    0% { transform: scale(1);}
+    50% { transform: scale(1.2);}
+    100% { transform: scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>ก้องมาง้อแล้วจะหายงอลก้องไหมม 🥺</h1>
+    <p id="text"></p>
+
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div id="percent">ใจอ่อนยางงงง 0%</div>
+
+    <button class="btn yes" id="yesBtn" onclick="forgive()">หายแล้ว 💖</button>
+    <button class="btn no" id="noBtn" onmouseover="moveButton()">ไม่หายหรอ 😤</button>
+</div>
+
+<audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+// 🎵 music
+document.body.addEventListener("click", () => {
+    document.getElementById("bgm").play();
+}, { once: true });
+
+// ✍️ typing
+const msg = "เทอเค้ามาง้อขอโทษนะ 🥺";
+let i=0;
+function type(){
+ if(i<msg.length){
+  text.innerHTML+=msg[i++];
+  setTimeout(type,50);
+ }
+}
+type();
+
+// 💬 random teasing (มีชื่อ!)
+const teasing = [
+ "น้ำเพชรหายงอนก้องเถอะน้า 🥺💖",
+ "ง้ออีกหน่อยได้มั้ยยย 🥺",
+ "ยังไม่พอออ 😤",
+ "ใจแข็งจังเลยน้า 😝",
+ "ก้องง้ออยู่นะะะ 💔",
+ "อีกนิดเดียวเองง 💖",
+ "เค้าพยายามอยู่นะ 🥺",
+ "ง้อจนเหนื่อยแล้วนะ 😂"
+];
+
+// state
+let progress=0, scaleYes=1, scaleNo=1;
+
+function moveButton(){
+ const no=document.getElementById("noBtn");
+ const yes=document.getElementById("yesBtn");
+
+ no.style.position="fixed";
+ no.style.left=Math.random()*90+"vw";
+ no.style.top=Math.random()*90+"vh";
+
+ scaleNo*=0.85;
+ scaleYes*=1.1;
+
+ if(scaleYes>2.5) scaleYes=2.5;
+ if(scaleNo<0.3) scaleNo=0.3;
+
+ no.style.transform=`scale(${scaleNo})`;
+ yes.style.transform=`scale(${scaleYes})`;
+
+ progress+=10;
+ if(progress>100) progress=100;
+
+ bar.style.width=progress+"%";
+ percent.innerText="ใจอ่อนแล้ว "+progress+"%";
+
+ // 💖 ข้อความ random
+ document.getElementById("text").innerHTML =
+  teasing[Math.floor(Math.random() * teasing.length)];
+}
+
+// 💖 MAIN EVENT
+function forgive(){
+ document.body.innerHTML=`
+ <div style="text-align:center">
+  <h1>เย้!!! 🥳💖</h1>
+  <p class="fadeText" style="animation-delay:0.5s">เค้าดีใจมากเทอหายงอลแล้ว 🥺</p>
+  <p class="fadeText" style="animation-delay:1.5s">เค้าจะไม่ทิ้งเทอแล้วยะ ขอโทษ 💕</p>
+  <p class="fadeText" style="animation-delay:2.5s">รักเทอจ้าา 💖</p>
+  <button class="btn yes" onclick="hug()">กอดหน่อย 🤗</button>
+  <br><br>
+  <button onclick="location.reload()">เล่นใหม่ 🔄</button>
+ </div>
+ `;
+
+ explosion();
+ setTimeout(explosion,500);
+ sparkle();
+}
+
+// 💥 explosion
+function explosion(){
+ for(let i=0;i<50;i++){
+  let h=document.createElement("div");
+  h.innerHTML="💖";
+  h.style.position="fixed";
+  h.style.left="50%";
+  h.style.top="50%";
+  h.style.transition="1s";
+
+  let a=Math.random()*2*Math.PI;
+  let d=Math.random()*300;
+
+  document.body.appendChild(h);
+
+  setTimeout(()=>{
+   h.style.transform=`translate(${Math.cos(a)*d}px,${Math.sin(a)*d}px)`;
+   h.style.opacity=0;
+  },10);
+
+  setTimeout(()=>h.remove(),1000);
+ }
+}
+
+// ✨ sparkle
+function sparkle(){
+ for(let i=0;i<40;i++){
+  let s=document.createElement("div");
+  s.className="sparkle";
+  s.innerHTML="✨";
+  s.style.left=Math.random()*100+"vw";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),2000);
+ }
+}
+
+// 🤗 hug
+function hug(){
+ document.body.style.animation="hug 0.5s";
+ setTimeout(()=>document.body.style.animation="",500);
+ alert("เค้ากอดเทอแน่นๆ เลย 🤗💖");
+}
+
+// 💓 floating hearts
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="💖";
+ h.style.left=Math.random()*100+"vw";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+},300);
+
+</script>
+
+</body>
+</html>
